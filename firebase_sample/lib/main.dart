@@ -4,7 +4,7 @@ import 'package:firebase_sample/routers.dart';
 
 import 'locator.dart';
 
-main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupLocator();
