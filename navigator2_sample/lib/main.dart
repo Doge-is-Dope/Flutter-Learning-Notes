@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigator2_sample/routes/book_details_page.dart';
 import 'package:navigator2_sample/screens/screens.dart';
 
 import 'modals/book.dart';
@@ -43,13 +44,20 @@ class _BooksAppState extends State<BooksApp> {
                 books: books,
                 onTapped: _handleBookTapped,
               )),
-          if (_selectedBook != null)
-            MaterialPage(
-              key: ValueKey(_selectedBook),
-              child: BookDetailsScreen(book: _selectedBook!),
-            )
+          if (_selectedBook != null) BookDetailsPage(book: _selectedBook!),
         ],
-        onPopPage: (route, result) => route.didPop(result),
+        onPopPage: (route, result) {
+          if (!route.didPop(result)) {
+            return false;
+          }
+
+          // Update the list of pages by setting _selectedBook to null
+          setState(() {
+            _selectedBook = null;
+          });
+
+          return true;
+        },
       ),
     );
   }
